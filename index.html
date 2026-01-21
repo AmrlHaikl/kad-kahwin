@@ -1,157 +1,150 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Jemputan: Amirul & Zafirah</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jemputan: Amirul & Zafirah</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital@0;1&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital@0;1&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-body, html {
-    height: 100%;
-    width: 100%;
-    font-family: 'Poppins', sans-serif;
-    background-color: #f4f1ea;
-    overflow: auto; /* penting untuk scroll mobile */
-    -webkit-overflow-scrolling: touch; /* smooth scroll iOS */
-}
+        body, html {
+            height: 100%;
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f1ea;
+            overflow: hidden; /* Lock skrin luar */
+        }
 
-/* COVER */
-.cover {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    display: flex; justify-content: center; align-items: center;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80');
-    background-size: cover; background-position: center;
-    z-index: 1000;
-    transition: transform 0.8s ease-in-out;
-}
+        /* COVER */
+        .cover {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex; justify-content: center; align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80');
+            background-size: cover; background-position: center;
+            z-index: 1000;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+        }
 
-.cover-box {
-    background: white; padding: 40px 20px; border-radius: 20px;
-    width: 85%; max-width: 350px; text-align: center;
-}
+        .cover-box {
+            background: rgba(255,255,255,0.95); padding: 40px 20px; border-radius: 20px;
+            width: 85%; max-width: 350px; text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
 
-.cover h1 { font-family: 'Dancing Script', cursive; color: #c59d5f; font-size: 2.2rem; margin-bottom: 15px; }
+        .cover h1 { font-family: 'Dancing Script', cursive; color: #c59d5f; font-size: 2.2rem; margin-bottom: 15px; }
 
-.btn-open {
-    padding: 12px 35px; background: #c59d5f; color: white; border: none;
-    border-radius: 25px; font-weight: bold; cursor: pointer;
-}
+        .btn-open {
+            padding: 12px 35px; background: #c59d5f; color: white; border: none;
+            border-radius: 25px; font-weight: bold; cursor: pointer;
+            box-shadow: 0 5px 15px rgba(197,157,95,0.3);
+        }
 
-/* MAIN AREA */
-.main-content {
-    height: 100dvh;
-    display: flex; justify-content: center; align-items: center;
-    perspective: 1500px;
-    padding: 10px;
-}
+        /* MAIN AREA */
+        .main-content {
+            height: 100dvh;
+            display: flex; justify-content: center; align-items: center;
+            perspective: 2000px;
+            padding: 15px;
+        }
 
-/* BOOK CONTAINER */
-.book {
-    width: 100%;
-    max-width: 380px;
-    height: 80vh;
-    max-height: 600px;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
+        /* BOOK CONTAINER */
+        .book {
+            width: 100%;
+            max-width: 380px;
+            height: 80vh;
+            max-height: 600px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
 
-.book.open {
-    transform: rotateY(-180deg);
-}
+        .book.open {
+            transform: rotateY(-180deg);
+        }
 
-.page {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0; left: 0;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    border-radius: 15px;
-    background: #fff;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
+        .page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 15px;
+            background: #fff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
 
-/* FRONT PAGE */
-.page-front {
-    z-index: 2;
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    border: 8px double #efe7dc;
-    padding: 20px;
-    text-align: center;
-}
+        /* FRONT PAGE */
+        .page-front {
+            z-index: 2;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            border: 8px double #efe7dc;
+            padding: 25px;
+            text-align: center;
+        }
 
-/* BACK PAGE (INSIDE) */
-.page-back {
-    transform: rotateY(180deg);
-    z-index: 1;
-    pointer-events: auto;
-    position: relative;
-}
+        /* BACK PAGE (INSIDE) */
+        .page-back {
+            transform: rotateY(180deg);
+            z-index: 1;
+            background: #fff;
+        }
 
-/* SCROLLABLE AREA */
-.scroll-container {
-    position: relative;
-    height: 100%;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    padding: 25px 20px;
-    z-index: 2;
-}
+        /* SCROLLABLE AREA */
+        .scroll-container {
+            height: 100%;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 30px 20px;
+            text-align: center;
+        }
 
-/* CONTENT STYLING */
-.scroll-container img { 
-    width: 100%; border-radius: 10px; margin-bottom: 20px; 
-    display: block;
-}
+        /* CONTENT STYLING */
+        .scroll-container img { 
+            width: 100%; border-radius: 10px; margin-bottom: 25px; 
+            display: block; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
 
-.section { margin-bottom: 30px; text-align: center; }
-.section h3 { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #c59d5f; }
+        .section { margin-bottom: 30px; }
+        .section h3 { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #c59d5f; margin-bottom: 10px; }
+        .section p { font-size: 0.9rem; line-height: 1.6; }
 
-.timer-box { 
-    background: #fdf8f2; padding: 15px; border-radius: 10px; 
-    margin: 15px 0; border: 1px solid #efe7dc;
-}
+        .timer-box { 
+            background: #fdf8f2; padding: 15px; border-radius: 10px; 
+            margin: 20px 0; border: 1px solid #efe7dc;
+        }
 
-input { 
-    width: 100%; padding: 12px; margin: 10px 0; 
-    border: 1px solid #ddd; border-radius: 8px; 
-}
+        input { 
+            width: 100%; padding: 12px; margin: 8px 0; 
+            border: 1px solid #ddd; border-radius: 8px; 
+        }
 
-.btn-rsvp { 
-    background: #c59d5f; color: white; border: none; 
-    width: 100%; padding: 12px; border-radius: 25px; 
-    font-weight: bold; 
-}
+        .btn-rsvp { 
+            background: #c59d5f; color: white; border: none; 
+            width: 100%; padding: 12px; border-radius: 25px; 
+            font-weight: bold; margin-top: 10px;
+        }
 
-iframe { width: 100%; height: 180px; border-radius: 10px; border:none; margin-top: 10px; }
+        iframe { width: 100%; height: 180px; border-radius: 10px; border:none; margin-top: 15px; }
 
-/* Custom Scrollbar (Chrome/Safari) */
-.scroll-container::-webkit-scrollbar { width: 4px; }
-.scroll-container::-webkit-scrollbar-thumb { background: #c59d5f; border-radius: 10px; }
-
-/* MOBILE FIX: Auto buka kad supaya scroll boleh */
-@media (max-width: 768px) {
-    .book {
-        transform: none !important;
-    }
-    .page-front { display: none; }
-}
-</style>
+        /* Custom Scrollbar */
+        .scroll-container::-webkit-scrollbar { width: 4px; }
+        .scroll-container::-webkit-scrollbar-thumb { background: #c59d5f; border-radius: 10px; }
+    </style>
 </head>
 <body>
 
 <div class="cover" id="cover">
     <div class="cover-box">
-        <p>Walimatul Urus</p>
+        <p style="letter-spacing: 2px; font-size: 0.8rem;">WALIMATUL URUS</p>
         <h1>Amirul & Zafirah</h1>
+        <p style="font-size: 0.9rem; margin-bottom: 20px;">27 Julai 2027</p>
         <button class="btn-open" onclick="startJemputan()">Buka Jemputan</button>
     </div>
 </div>
@@ -160,10 +153,10 @@ iframe { width: 100%; height: 180px; border-radius: 10px; border:none; margin-to
     <div class="book" id="bookContainer">
         
         <div class="page page-front" id="frontPage">
-            <p style="letter-spacing: 2px;">JEMPUTAN KAHWIN</p>
+            <p style="letter-spacing: 2px; font-size: 0.8rem; color: #888;">JEMPUTAN KAHWIN</p>
             <h1 style="font-family: 'Dancing Script'; font-size: 2rem; color: #c59d5f; margin: 20px 0;">Amirul Haikal & <br>Nor Zafirah</h1>
-            <p>21 . 07 . 2027</p>
-            <p style="font-size: 0.7rem; color: #aaa; margin-top: 40px;">SILA TUNGGU KAD TERBUKA...</p>
+            <p>27 . 07 . 2027</p>
+            <p style="font-size: 0.7rem; color: #aaa; margin-top: 50px;">KLIK BUTANG DI ATAS UNTUK BUKA</p>
         </div>
 
         <div class="page page-back">
@@ -173,38 +166,43 @@ iframe { width: 100%; height: 180px; border-radius: 10px; border:none; margin-to
 
                 <div class="section">
                     <h3>Assalamualaikum</h3>
-                    <p>Kami dengan rendah hati menjemput Dato/Datin/Tuan/Puan ke majlis kami:</p>
+                    <p>Dengan penuh rasa syukur, kami menjemput anda ke majlis perkahwinan kami pada:</p>
                 </div>
 
                 <div class="section">
-                    <p><strong>Rabu, 21 Julai 2027</strong></p>
+                    <p><strong>TARIKH</strong></p>
+                    <p>Ahad, 27 Julai 2027</p>
+                    <br>
+                    <p><strong>MASA</strong></p>
                     <p>11.00 AM - 4.00 PM</p>
+                    <br>
+                    <p><strong>LOKASI</strong></p>
                     <p>Seri Austin Residence, Johor Bahru</p>
                 </div>
 
                 <div class="timer-box">
                     <p style="font-size: 0.8rem;">Menghitung Hari:</p>
-                    <p id="timer" style="font-weight: bold; color: #c59d5f;"></p>
+                    <p id="timer" style="font-weight: bold; color: #c59d5f; font-size: 1rem;"></p>
                 </div>
 
                 <div class="section">
-                    <h3>RSVP</h3>
+                    <h3>RSVP Kehadiran</h3>
                     <form action="https://formspree.io/f/mykklabz" method="POST">
                         <input type="text" name="Nama" placeholder="Nama Anda" required>
                         <input type="number" name="Tetamu" placeholder="Bilangan Tetamu" required>
-                        <button type="submit" class="btn-rsvp">Hantar</button>
+                        <button type="submit" class="btn-rsvp">Hantar RSVP</button>
                     </form>
                 </div>
 
                 <div class="section">
-                    <h3>Lokasi</h3>
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.123456789!2d103.700!3d1.450!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x123456789abcdef!2sSeri+Austin+Residence!5e0!3m2!1sen!2smy!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
-                    <a href="https://waze.com/ul/hw23b9ut8e" target="_blank" style="display:block; margin-top:10px; color:#c59d5f; text-decoration:none; font-weight:bold;">Buka Waze</a>
+                    <h3>Lokasi Majlis</h3>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.337583688537!2d103.7631!3d1.5719!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da696e5d6d871d%3A0x2a98f1f7d98305c4!2sSeri%20Austin%20Residence!5e0!3m2!1sen!2smy!4v1690000000000" allowfullscreen="" loading="lazy"></iframe>
+                    <a href="https://waze.com/ul/hw23b9ut8e" target="_blank" style="display:block; margin-top:15px; color:#c59d5f; text-decoration:none; font-weight:bold;">Navigasi ke Waze</a>
                 </div>
 
                 <div class="section">
-                    <p style="font-size: 0.8rem; color: #999;">Terima Kasih</p>
-                    <div style="height: 50px;"></div>
+                    <p style="font-size: 0.8rem; color: #999; margin-top: 20px;">Terima Kasih</p>
+                    <div style="height: 40px;"></div>
                 </div>
 
             </div>
@@ -218,28 +216,30 @@ iframe { width: 100%; height: 180px; border-radius: 10px; border:none; margin-to
 
 <script>
 function startJemputan() {
-    const cover = document.getElementById('cover');
-    cover.style.transform = 'translateY(-100%)';
+    // 1. Alihkan Cover
+    document.getElementById('cover').style.transform = 'translateY(-100%)';
 
+    // 2. Play Audio
     const audio = document.getElementById('bgm');
-    audio.play().catch(e => console.log("Audio blocked"));
+    audio.play().catch(e => console.log("Audio play blocked"));
 
+    // 3. Flip Buku (PC & Mobile)
     const book = document.getElementById('bookContainer');
+    book.classList.add('open');
 
-    // Hanya flip kalau desktop
-    if(window.innerWidth > 768){
-        book.classList.add('open');
-        setTimeout(() => {
-            document.getElementById('frontPage').style.display = 'none';
-            const scrollArea = document.getElementById('insideScroll');
-            scrollArea.style.overflowY = 'scroll';
-            scrollArea.scrollTop = 1;
-        }, 1300);
-    }
+    // 4. Fix Scroll (Bagi masa animation flip habis dulu)
+    setTimeout(() => {
+        // Hilangkan muka depan supaya jari tak tersangkut
+        document.getElementById('frontPage').style.visibility = 'hidden';
+        
+        // Pastikan scroll aktif
+        const scrollArea = document.getElementById('insideScroll');
+        scrollArea.scrollTop = 1;
+    }, 1200);
 }
 
-// Timer
-const targetDate = new Date("July 21, 2027 11:00:00").getTime();
+// Timer (Tukar ke 27 Julai 2027)
+const targetDate = new Date("July 27, 2027 11:00:00").getTime();
 setInterval(() => {
     const now = new Date().getTime();
     const diff = targetDate - now;
@@ -247,7 +247,12 @@ setInterval(() => {
     const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
     const s = Math.floor((diff % (1000 * 60)) / 1000);
-    document.getElementById("timer").innerText = `${d} Hari ${h} Jam ${m} Minit ${s} Saat`;
+    
+    if(diff > 0) {
+        document.getElementById("timer").innerText = `${d} Hari ${h} Jam ${m} Minit ${s} Saat`;
+    } else {
+        document.getElementById("timer").innerText = "Selamat Pengantin Baru!";
+    }
 }, 1000);
 </script>
 
