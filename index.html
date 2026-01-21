@@ -1,144 +1,150 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Jemputan: Amirul & Zafirah</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Jemputan: Amirul & Zafirah</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital@0;1&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital@0;1&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body, html {
-            height: 100%;
-            width: 100%;
-            font-family: 'Poppins', sans-serif;
-            background-color: #f4f1ea;
-            overflow: hidden; /* Lock skrin utama supaya tak goyang */
-        }
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* COVER */
-        .cover {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            display: flex; justify-content: center; align-items: center;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                        url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80');
-            background-size: cover; background-position: center;
-            z-index: 1000;
-            transition: transform 0.8s ease-in-out;
-        }
+body, html {
+    height: 100%;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f1ea;
+    overflow: auto; /* penting untuk scroll mobile */
+    -webkit-overflow-scrolling: touch; /* smooth scroll iOS */
+}
 
-        .cover-box {
-            background: white; padding: 40px 20px; border-radius: 20px;
-            width: 85%; max-width: 350px; text-align: center;
-        }
+/* COVER */
+.cover {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: flex; justify-content: center; align-items: center;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80');
+    background-size: cover; background-position: center;
+    z-index: 1000;
+    transition: transform 0.8s ease-in-out;
+}
 
-        .cover h1 { font-family: 'Dancing Script', cursive; color: #c59d5f; font-size: 2.2rem; margin-bottom: 15px; }
+.cover-box {
+    background: white; padding: 40px 20px; border-radius: 20px;
+    width: 85%; max-width: 350px; text-align: center;
+}
 
-        .btn-open {
-            padding: 12px 35px; background: #c59d5f; color: white; border: none;
-            border-radius: 25px; font-weight: bold; cursor: pointer;
-        }
+.cover h1 { font-family: 'Dancing Script', cursive; color: #c59d5f; font-size: 2.2rem; margin-bottom: 15px; }
 
-        /* MAIN AREA */
-        .main-content {
-            height: 100dvh;
-            display: flex; justify-content: center; align-items: center;
-            perspective: 1500px;
-            padding: 10px;
-        }
+.btn-open {
+    padding: 12px 35px; background: #c59d5f; color: white; border: none;
+    border-radius: 25px; font-weight: bold; cursor: pointer;
+}
 
-        /* BOOK CONTAINER */
-        .book {
-            width: 100%;
-            max-width: 380px;
-            height: 80vh;
-            max-height: 600px;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-        }
+/* MAIN AREA */
+.main-content {
+    height: 100dvh;
+    display: flex; justify-content: center; align-items: center;
+    perspective: 1500px;
+    padding: 10px;
+}
 
-        .book.open {
-            transform: rotateY(-180deg);
-        }
+/* BOOK CONTAINER */
+.book {
+    width: 100%;
+    max-width: 380px;
+    height: 80vh;
+    max-height: 600px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
 
-        .page {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0; left: 0;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            border-radius: 15px;
-            background: #fff;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-        }
+.book.open {
+    transform: rotateY(-180deg);
+}
 
-        /* FRONT PAGE */
-        .page-front {
-            z-index: 2;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            border: 8px double #efe7dc;
-            padding: 20px;
-            text-align: center;
-        }
+.page {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 15px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
 
-        /* BACK PAGE (INSIDE) */
-        .page-back {
-            transform: rotateY(180deg);
-            z-index: 1;
-            /* Penting: Pastikan element ni boleh terima touch */
-            pointer-events: auto;
-        }
+/* FRONT PAGE */
+.page-front {
+    z-index: 2;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    border: 8px double #efe7dc;
+    padding: 20px;
+    text-align: center;
+}
 
-        /* SCROLLABLE AREA - INI YANG KAU NAK */
-        .scroll-container {
-            width: 100%;
-            height: 100%;
-            overflow-y: scroll; /* Paksa muncul scroll */
-            padding: 25px 20px;
-            /* Smooth scroll untuk iOS */
-            -webkit-overflow-scrolling: touch; 
-            position: relative;
-            z-index: 99;
-        }
+/* BACK PAGE (INSIDE) */
+.page-back {
+    transform: rotateY(180deg);
+    z-index: 1;
+    pointer-events: auto;
+    position: relative;
+}
 
-        /* CONTENT STYLING */
-        .scroll-container img { 
-            width: 100%; border-radius: 10px; margin-bottom: 20px; 
-            display: block;
-        }
+/* SCROLLABLE AREA */
+.scroll-container {
+    position: relative;
+    height: 100%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    padding: 25px 20px;
+    z-index: 2;
+}
 
-        .section { margin-bottom: 30px; text-align: center; }
-        .section h3 { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #c59d5f; }
-        
-        .timer-box { 
-            background: #fdf8f2; padding: 15px; border-radius: 10px; 
-            margin: 15px 0; border: 1px solid #efe7dc;
-        }
+/* CONTENT STYLING */
+.scroll-container img { 
+    width: 100%; border-radius: 10px; margin-bottom: 20px; 
+    display: block;
+}
 
-        input { 
-            width: 100%; padding: 12px; margin: 10px 0; 
-            border: 1px solid #ddd; border-radius: 8px; 
-        }
+.section { margin-bottom: 30px; text-align: center; }
+.section h3 { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #c59d5f; }
 
-        .btn-rsvp { 
-            background: #c59d5f; color: white; border: none; 
-            width: 100%; padding: 12px; border-radius: 25px; 
-            font-weight: bold; 
-        }
+.timer-box { 
+    background: #fdf8f2; padding: 15px; border-radius: 10px; 
+    margin: 15px 0; border: 1px solid #efe7dc;
+}
 
-        iframe { width: 100%; height: 180px; border-radius: 10px; border:none; margin-top: 10px; }
+input { 
+    width: 100%; padding: 12px; margin: 10px 0; 
+    border: 1px solid #ddd; border-radius: 8px; 
+}
 
-        /* Custom Scrollbar (Chrome/Safari) */
-        .scroll-container::-webkit-scrollbar { width: 4px; }
-        .scroll-container::-webkit-scrollbar-thumb { background: #c59d5f; border-radius: 10px; }
+.btn-rsvp { 
+    background: #c59d5f; color: white; border: none; 
+    width: 100%; padding: 12px; border-radius: 25px; 
+    font-weight: bold; 
+}
 
-    </style>
+iframe { width: 100%; height: 180px; border-radius: 10px; border:none; margin-top: 10px; }
+
+/* Custom Scrollbar (Chrome/Safari) */
+.scroll-container::-webkit-scrollbar { width: 4px; }
+.scroll-container::-webkit-scrollbar-thumb { background: #c59d5f; border-radius: 10px; }
+
+/* MOBILE FIX: Auto buka kad supaya scroll boleh */
+@media (max-width: 768px) {
+    .book {
+        transform: none !important;
+    }
+    .page-front { display: none; }
+}
+</style>
 </head>
 <body>
 
@@ -192,13 +198,14 @@
 
                 <div class="section">
                     <h3>Lokasi</h3>
-                    <iframe src="http://googleusercontent.com/maps.google.com/4"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.123456789!2d103.700!3d1.450!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x123456789abcdef!2sSeri+Austin+Residence!5e0!3m2!1sen!2smy!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
                     <a href="https://waze.com/ul/hw23b9ut8e" target="_blank" style="display:block; margin-top:10px; color:#c59d5f; text-decoration:none; font-weight:bold;">Buka Waze</a>
                 </div>
 
                 <div class="section">
                     <p style="font-size: 0.8rem; color: #999;">Terima Kasih</p>
-                    <div style="height: 50px;"></div> </div>
+                    <div style="height: 50px;"></div>
+                </div>
 
             </div>
         </div>
@@ -210,44 +217,38 @@
 </audio>
 
 <script>
-    function startJemputan() {
-        // 1. Sorok Cover
-        document.getElementById('cover').style.transform = 'translateY(-100%)';
-        
-        // 2. Play Audio
-        const audio = document.getElementById('bgm');
-        audio.play().catch(e => console.log("Audio blocked"));
+function startJemputan() {
+    const cover = document.getElementById('cover');
+    cover.style.transform = 'translateY(-100%)';
 
-        // 3. Flip Kad
-        const book = document.getElementById('bookContainer');
+    const audio = document.getElementById('bgm');
+    audio.play().catch(e => console.log("Audio blocked"));
+
+    const book = document.getElementById('bookContainer');
+
+    // Hanya flip kalau desktop
+    if(window.innerWidth > 768){
         book.classList.add('open');
-
-        // 4. FIX UNTUK MOBILE SCROLL (PENTING!)
-        // Selepas animasi flip (1.2 saat), kita buang terus 'muka depan' 
-        // supaya jari kita tak tersangkut pada element tu.
         setTimeout(() => {
             document.getElementById('frontPage').style.display = 'none';
-            
-            // Re-trigger scrollability
             const scrollArea = document.getElementById('insideScroll');
             scrollArea.style.overflowY = 'scroll';
-            
-            // Sedikit 'kick' supaya browser tahu ada scroll
             scrollArea.scrollTop = 1;
         }, 1300);
     }
+}
 
-    // Timer
-    const targetDate = new Date("July 21, 2027 11:00:00").getTime();
-    setInterval(() => {
-        const now = new Date().getTime();
-        const diff = targetDate - now;
-        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((diff % (1000 * 60)) / 1000);
-        document.getElementById("timer").innerText = `${d} Hari ${h} Jam ${m} Minit ${s} Saat`;
-    }, 1000);
+// Timer
+const targetDate = new Date("July 21, 2027 11:00:00").getTime();
+setInterval(() => {
+    const now = new Date().getTime();
+    const diff = targetDate - now;
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const s = Math.floor((diff % (1000 * 60)) / 1000);
+    document.getElementById("timer").innerText = `${d} Hari ${h} Jam ${m} Minit ${s} Saat`;
+}, 1000);
 </script>
 
 </body>
