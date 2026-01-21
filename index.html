@@ -1,228 +1,336 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Jemputan: Amirul & Zafirah</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jemputan Kahwin: Amirul & Zafirah</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital@0;1&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital@0;1&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-<style>
-/* RESET & BASIC */
-* { box-sizing: border-box; margin:0; padding:0; }
-body, html {
-  height: 100%;
-  width: 100%;
-  font-family: 'Poppins', sans-serif;
-  background: #f4f1ea;
-  overflow: hidden; /* Lock screen supaya tak melompat */
-}
+    <style>
+        /* 1. RESET & BASE STYLES */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body, html {
+            height: 100%;
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f4ef;
+            color: #333;
+            overflow: hidden; /* Lock main screen */
+        }
 
-/* COVER - SENTIASA FULL SCREEN */
-.cover {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-              url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80');
-  background-size: cover;
-  background-position: center;
-  z-index: 100;
-  transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
-}
+        /* 2. COVER PAGE (Tirai) */
+        .cover {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+            z-index: 1000;
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+        }
 
-.cover-box {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 30px;
-  border-radius: 15px;
-  width: 85%;
-  max-width: 350px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
+        .cover-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px 30px;
+            border-radius: 20px;
+            width: 85%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
 
-.cover h1 { font-family: 'Dancing Script', cursive; color: #c59d5f; font-size: 2.2rem; margin-bottom: 10px; }
-.cover button {
-  margin-top: 20px;
-  padding: 12px 35px;
-  background: #c59d5f;
-  color: #fff;
-  border: none;
-  border-radius: 25px;
-  font-weight: bold;
-  cursor: pointer;
-}
+        .cover h1 { 
+            font-family: 'Dancing Script', cursive; 
+            color: #c59d5f; 
+            font-size: 2.5rem; 
+            margin-bottom: 15px; 
+        }
 
-/* MAIN WRAPPER */
-.main-content {
-  height: 100dvh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  perspective: 1500px;
-  padding: 20px;
-}
+        .cover button {
+            margin-top: 20px;
+            padding: 14px 40px;
+            background: #c59d5f;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(197, 157, 95, 0.4);
+        }
 
-/* KAD / BOOK */
-.book {
-  width: 100%;
-  max-width: 360px; /* Lebar cantik untuk PC & Mobile */
-  height: 80vh; /* Ikut tinggi skrin */
-  max-height: 600px;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
+        /* 3. MAIN CONTAINER */
+        .main-content {
+            height: 100dvh; /* Dynamic Viewport Height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 2000px;
+            padding: 15px;
+        }
 
-.book.open { transform: rotateY(-180deg); }
+        /* 4. THE BOOK (3D CARD) */
+        .book {
+            width: 100%;
+            max-width: 380px;
+            height: 85vh;
+            max-height: 650px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+        }
 
-.page {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0; left: 0;
-  backface-visibility: hidden;
-  border-radius: 15px;
-  background: #fff;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
+        /* Flip Action */
+        .book.open {
+            transform: rotateY(-180deg);
+        }
 
-/* FRONT PAGE */
-.page-front {
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 8px double #efe7dc;
-  padding: 20px;
-}
+        .page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0; left: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 15px;
+            background: #fff;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
 
-.page-front h1 { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #c59d5f; text-align: center; margin: 15px 0; }
+        /* FRONT PAGE STYLING */
+        .page-front {
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 10px double #efe7dc;
+            padding: 30px;
+        }
 
-/* BACK PAGE (INSIDE) */
-.page-back {
-  transform: rotateY(180deg);
-  overflow: hidden;
-}
+        /* IMPORTANT: Fix for Mobile Scroll */
+        .book.open .page-front {
+            pointer-events: none; /* User boleh sentuh tembus ke belakang */
+            visibility: hidden;  /* Sembunyikan terus bila dah buka */
+        }
 
-.scroll-content {
-  height: 100%;
-  overflow-y: auto;
-  padding: 25px 20px;
-  -webkit-overflow-scrolling: touch; /* Smooth scroll iPhone */
-}
+        .page-front h1 { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 2.2rem; 
+            color: #c59d5f; 
+            text-align: center; 
+            margin: 20px 0;
+        }
 
-/* CONTENT STYLING */
-.scroll-content img { width: 100%; border-radius: 10px; margin-bottom: 20px; }
-.info-section { margin-bottom: 25px; line-height: 1.6; font-size: 0.95rem; }
-.info-section h3 { font-family: 'Dancing Script', cursive; font-size: 1.6rem; color: #c59d5f; }
+        /* BACK PAGE (INSIDE CONTENT) */
+        .page-back {
+            transform: rotateY(180deg);
+            z-index: 1;
+            overflow: hidden; /* Kita scroll dalam sub-div */
+        }
 
-.timer-box { background: #fdf8f2; padding: 15px; border-radius: 10px; margin: 15px 0; font-size: 0.85rem; }
-#timer { font-weight: bold; color: #c59d5f; display: block; margin-top: 5px; }
+        .scroll-content {
+            height: 100%;
+            width: 100%;
+            overflow-y: scroll; /* Force scroll */
+            padding: 30px 20px;
+            -webkit-overflow-scrolling: touch; /* Smooth scroll iPhone */
+            text-align: center;
+            touch-action: pan-y; /* Benarkan scroll atas bawah sahaja */
+        }
 
-input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ddd; border-radius: 5px; }
-.btn-submit { background: #c59d5f; color: white; border: none; padding: 12px; width: 100%; border-radius: 5px; cursor: pointer; }
+        /* 5. INTERNAL CONTENT STYLES */
+        .scroll-content img { 
+            width: 100%; 
+            border-radius: 15px; 
+            margin-bottom: 25px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
 
-iframe { width: 100%; height: 150px; border-radius: 10px; margin-top: 10px; border:none; }
+        .info-section { margin-bottom: 30px; }
+        .info-section h3 { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #c59d5f; margin-bottom: 10px; }
+        .info-section p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 5px; }
 
-/* SCROLLBAR CUSTOM */
-.scroll-content::-webkit-scrollbar { width: 4px; }
-.scroll-content::-webkit-scrollbar-thumb { background: #c59d5f; border-radius: 10px; }
+        .timer-box { 
+            background: #fdf8f2; 
+            padding: 20px; 
+            border-radius: 15px; 
+            margin: 20px 0; 
+            border: 1px solid #efe7dc;
+        }
+        #timer { 
+            font-weight: bold; 
+            color: #c59d5f; 
+            display: block; 
+            margin-top: 10px; 
+            font-size: 1.1rem;
+        }
 
-</style>
+        /* Form RSVP */
+        form { background: #fff; padding: 10px; }
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            margin: 8px 0; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            font-family: 'Poppins', sans-serif;
+        }
+        .btn-submit { 
+            background: #c59d5f; 
+            color: white; 
+            border: none; 
+            padding: 14px; 
+            width: 100%; 
+            border-radius: 30px; 
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Map */
+        iframe { width: 100%; height: 200px; border-radius: 15px; border: none; margin-top: 15px; }
+        .waze-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: #c59d5f;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 2px solid #c59d5f;
+        }
+
+        /* Scrollbar Visual */
+        .scroll-content::-webkit-scrollbar { width: 4px; }
+        .scroll-content::-webkit-scrollbar-thumb { background: #c59d5f; border-radius: 10px; }
+
+    </style>
 </head>
 <body>
 
 <div class="cover" id="cover">
-  <div class="cover-box">
-    <p>Walimatul Urus</p>
-    <h1>Amirul & Zafirah</h1>
-    <button onclick="openInvite()">Buka Jemputan</button>
-  </div>
+    <div class="cover-box">
+        <p style="letter-spacing: 3px; font-size: 0.8rem;">WALIMATUL URUS</p>
+        <h1>Amirul & Zafirah</h1>
+        <p style="font-size: 0.9rem;">27 Julai 2027</p>
+        <button onclick="openInvite()">Buka Jemputan</button>
+    </div>
 </div>
 
 <div class="main-content">
-  <div class="book" id="book">
-    
-    <div class="page page-front">
-        <img src="https://cdn-icons-png.flaticon.com/512/3663/3663324.png" width="50" style="opacity:0.5">
-        <p style="letter-spacing: 2px; font-size: 0.8rem; margin-top:10px;">WALIMATUL URUS</p>
-        <h1>Amirul Haikal <br>&<br> Nor Zafirah</h1>
-        <p>27 JULAI 2027</p>
-        <p style="font-size: 0.7rem; color: #aaa; margin-top: 50px;">KLIK UNTUK BACA</p>
-    </div>
-
-    <div class="page page-back">
-      <div class="scroll-content">
-        <img src="372b852e-3828-40d7-83be-6906b96165e8.jpg" alt="Pengantin">
+    <div class="book" id="book">
         
-        <div class="info-section">
-            <h3>Assalamualaikum</h3>
-            <p>Dengan penuh kesyukuran, kami menjemput anda ke majlis perkahwinan kami:</p>
-            <br>
-            <p><strong>Tarikh:</strong> 27 Julai 2027 (Selasa)</p>
-            <p><strong>Masa:</strong> 11.00 AM - 4.00 PM</p>
-            <p><strong>Tempat:</strong> Seri Austin, Johor Bahru</p>
+        <div class="page page-front">
+            <div style="border: 1px solid #c59d5f; padding: 40px 20px; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <p style="letter-spacing: 4px; font-size: 0.7rem; color: #888;">MENANTI HARI</p>
+                <h1>Amirul Haikal <br>&<br> Nor Zafirah</h1>
+                <p style="font-style: italic; color: #c59d5f;">"Dan antara tanda-tanda kebesaran-Nya, Dia menciptakan pasangan untukmu dari jenismu sendiri..."</p>
+                <p style="font-size: 0.7rem; color: #aaa; margin-top: 40px;">(Sila scroll ke bawah selepas dibuka)</p>
+            </div>
         </div>
 
-        <div class="timer-box">
-            Menghitung Hari:
-            <span id="timer">Memuatkan...</span>
+        <div class="page page-back">
+            <div class="scroll-content" id="scrollArea">
+                
+                <div class="info-section">
+                    <img src="372b852e-3828-40d7-83be-6906b96165e8.jpg" alt="Gambar Pengantin">
+                    <h3>Assalamualaikum</h3>
+                    <p>Dengan penuh rasa syukur ke hadrat Ilahi, kami menjemput anda ke majlis kami:</p>
+                </div>
+
+                <div class="info-section">
+                    <p><strong>TARIKH</strong></p>
+                    <p>Selasa, 27 Julai 2027</p>
+                    <br>
+                    <p><strong>MASA</strong></p>
+                    <p>11.00 Pagi - 4.00 Petang</p>
+                    <br>
+                    <p><strong>LOKASI</strong></p>
+                    <p>Seri Austin Residence,<br>Johor Bahru, Johor</p>
+                </div>
+
+                <div class="timer-box">
+                    <p>Menghitung Hari:</p>
+                    <span id="timer">00 Hari 00 Jam 00 Minit 00 Saat</span>
+                </div>
+
+                <div class="info-section">
+                    <h3>RSVP Kehadiran</h3>
+                    <p>Sila isi borang di bawah:</p>
+                    <form action="https://formspree.io/f/mykklabz" method="POST">
+                        <input type="text" name="Nama" placeholder="Nama Penuh" required>
+                        <input type="number" name="Jumlah" placeholder="Bilangan Tetamu" required>
+                        <button type="submit" class="btn-submit">Hantar Kehadiran</button>
+                    </form>
+                </div>
+
+                <div class="info-section">
+                    <h3>Lokasi Majlis</h3>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.3514749297624!2d103.75841437434725!3d1.5537380984315263!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da696614457e5b%3A0x6d9f676451a7090b!2sSeri%20Austin%20Residence!5e0!3m2!1sen!2smy!4v1710000000000"></iframe>
+                    <a href="https://waze.com/ul/hw23b9ut8e" target="_blank" class="waze-link">Navigasi via Waze</a>
+                </div>
+
+                <div class="info-section">
+                    <p style="font-size: 0.8rem; color: #888; padding: 20px 0;">Terima kasih atas kehadiran dan doa anda.</p>
+                </div>
+
+            </div>
         </div>
 
-        <div class="info-section">
-            <h3>RSVP</h3>
-            <form action="https://formspree.io/f/mykklabz" method="POST">
-                <input type="text" name="Nama" placeholder="Nama Anda" required>
-                <input type="number" name="Tetamu" placeholder="Bilangan Tetamu" required>
-                <button type="submit" class="btn-submit">Hantar Kehadiran</button>
-            </form>
-        </div>
-
-        <div class="info-section">
-            <h3>Lokasi</h3>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.3585!2d103.7744!3d1.5724!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMcKwMzQnMjAuNiJOIDEwM8KwNDYnMjcuOCJF!5e0!3m2!1sms!2smy!4v1625000000000"></iframe>
-            <a href="https://waze.com/ul/hw23b9ut8e" target="_blank" style="display:block; margin-top:10px; color:#c59d5f; text-decoration:none; font-weight:bold; font-size:0.9rem;">Navigasi via Waze</a>
-        </div>
-
-        <p style="font-size: 0.8rem; color: #888; margin: 40px 0;">Terima Kasih atas doa restu anda.</p>
-      </div>
     </div>
-  </div>
 </div>
 
 <audio id="bgm" loop>
-  <source src="Selamat Pengantin Baru Instrumentalia Vol 1 - Selamat Pengantin Baru (Newlywed).mp3" type="audio/mpeg">
+    <source src="Selamat Pengantin Baru Instrumentalia Vol 1 - Selamat Pengantin Baru (Newlywed).mp3" type="audio/mpeg">
 </audio>
 
 <script>
-function openInvite() {
-  document.getElementById("cover").style.transform = "translateY(-100%)";
-  document.getElementById("bgm").play().catch(e => console.log("Audio play blocked"));
-  
-  setTimeout(() => {
-    document.getElementById("book").classList.add("open");
-  }, 600);
-}
+    function openInvite() {
+        // Sorokkan Cover
+        document.getElementById("cover").style.transform = "translateY(-100%)";
+        
+        // Mainkan Lagu
+        const audio = document.getElementById("bgm");
+        audio.play().catch(e => console.log("Audio autoplay blocked by browser"));
 
-// Countdown Timer
-const targetDate = new Date("July 21, 2027 11:00:00").getTime();
-setInterval(() => {
-  const now = new Date().getTime();
-  const gap = targetDate - now;
-  
-  const d = Math.floor(gap / (1000 * 60 * 60 * 24));
-  const h = Math.floor((gap % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const m = Math.floor((gap % (1000 * 60 * 60)) / (1000 * 60));
-  const s = Math.floor((gap % (1000 * 60)) / 1000);
-  
-  document.getElementById("timer").innerText = `${d} Hari ${h} Jam ${m} Minit ${s} Saat`;
-}, 1000);
+        // Buka Buku
+        const book = document.getElementById("book");
+        book.classList.add("open");
+
+        // Fix Scroll Mobile - Kita bagi delay sikit supaya animation habis dulu
+        setTimeout(() => {
+            const scrollArea = document.getElementById("scrollArea");
+            // Bagitahu browser ini area yang aktif untuk touch
+            scrollArea.focus();
+        }, 1200);
+    }
+
+    // COUNTDOWN TIMER
+    const weddingDate = new Date("July 21, 2027 11:00:00").getTime();
+
+    const x = setInterval(function() {
+        const now = new Date().getTime();
+        const distance = weddingDate - now;
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").innerHTML = days + " Hari " + hours + " Jam "
+        + minutes + " Minit " + seconds + " Saat ";
+
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("timer").innerHTML = "Selamat Pengantin Baru!";
+        }
+    }, 1000);
 </script>
 
 </body>
