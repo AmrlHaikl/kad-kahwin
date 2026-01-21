@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jemputan Perkahwinan</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(#f8f4ef, #efe7dc);
+  text-align: center;
+  color: #333;
+}
+
+/* ---------- COVER ---------- */
+.cover {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.cover-box {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 20px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.cover h1 {
+  font-size: 22px;
+  margin-bottom: 30px;
+}
+
+.cover button {
+  padding: 16px 36px;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  background: #c59d5f;
+  color: white;
+  cursor: pointer;
+}
+
+/* ---------- INVITATION ---------- */
+.invitation {
+  display: none;
+  min-height: 100vh;
+  padding: 40px 20px;
+  animation: fadeUp 1.2s ease;
+}
+
+.card {
+  background: white;
+  max-width: 480px;
+  margin: auto;
+  padding: 40px 30px;
+  border-radius: 24px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+  margin-top: 10px;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.card h1 {
+  font-size: 26px;
+  margin: 20px 0;
+}
+
+.card p {
+  font-size: 15px;
+  margin: 10px 0;
+}
+
+/* ---------- ANIMATION ---------- */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (min-width: 768px) {
+  .card h1 {
+    font-size: 32px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- COVER -->
+<div class="cover" id="cover">
+  <div class="cover-box">
+    <h1>Jemputan Majlis Perkahwinan</h1>
+    <button onclick="openInvite()">Buka Jemputan</button>
+  </div>
+</div>
+
+<!-- INVITATION -->
+<div class="invitation" id="invite">
+  <div class="card">
+    <h2>Walimatul Urus</h2>
+    <h1>Nama Pengantin Lelaki<br>&<br>Nama Pengantin Perempuan</h1>
+    <p>📅 Tarikh Majlis</p>
+    <p>🕒 Masa Majlis</p>
+    <p>📍 Lokasi Majlis</p>
+  </div>
+</div>
+
+<script>
+function openInvite() {
+  document.getElementById("cover").style.display = "none";
+  document.getElementById("invite").style.display = "block";
+}
+</script>
+
+</body>
+</html>
